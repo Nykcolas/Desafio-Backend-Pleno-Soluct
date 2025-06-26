@@ -39,7 +39,7 @@ Siga os passos abaixo para configurar e executar a aplicação no seu ambiente.
 
 ```bash
 git clone https://github.com/Nykcolas/Desafio-Backend-Pleno-Soluct.git
-cd desafio-backend-pleno-soluct
+cd Desafio-Backend-Pleno-Soluct
 ```
 
 **2. Configurar o Ambiente**
@@ -51,24 +51,24 @@ cp .env.example .env
 
 *Abra o arquivo `.env` e certifique-se de que as variáveis `DB_DATABASE`, `DB_USERNAME` e `DB_PASSWORD` estão preenchidas. O Laravel Sail usará estes valores para configurar o container do PostgreSQL.*
 
-**3. Iniciar os Containers**
-Use o Laravel Sail para construir e iniciar os containers Docker definidos no `docker-compose.yml`.
-
-```bash
-./vendor/bin/sail up -d
-```
-
-**4. Instalar as Dependências**
+**3. Instalar as Dependências**
 Execute o Composer dentro do container para instalar as dependências do PHP.
 
 ```bash
-./vendor/bin/sail composer install
+composer install
+```
+
+**4. Iniciar os Containers**
+Use o Laravel Sail para construir e iniciar os containers Docker definidos no `docker-compose.yml`.
+
+```bash
+sail up -d
 ```
 
 **5. Gerar a Chave da Aplicação**
 
 ```bash
-./vendor/bin/sail artisan key:generate
+sail artisan key:generate
 ```
 
 ## 🗄️ Configuração do Banco de Dados
@@ -76,7 +76,7 @@ Execute o Composer dentro do container para instalar as dependências do PHP.
 Para criar as tabelas do banco de dados e populá-las com dados de teste (usuários e tarefas), execute o seguinte comando:
 
 ```bash
-./vendor/bin/sail artisan migrate:fresh --seed
+sail artisan migrate:fresh --seed
 ```
 
 Este comando irá:
@@ -90,7 +90,7 @@ Este comando irá:
 A funcionalidade de webhook é assíncrona e depende de um "queue worker" para processar os jobs. Para iniciar o worker, execute o seguinte comando em um **novo terminal**:
 
 ```bash
-./vendor/bin/sail artisan queue:work
+sail artisan queue:work
 ```
 
 Deixe este terminal aberto para ver os jobs sendo processados em tempo real sempre que você criar ou atualizar uma tarefa.
@@ -100,7 +100,7 @@ Deixe este terminal aberto para ver os jobs sendo processados em tempo real semp
 Para garantir que toda a aplicação está funcionando corretamente, você pode rodar a suíte de testes automatizados com o seguinte comando:
 
 ```bash
-./vendor/bin/sail phpunit
+sail phpunit
 ```
 
 ## 📖 Documentação dos Endpoints (Swagger)
@@ -111,7 +111,7 @@ A API possui uma documentação interativa completa gerada com Swagger.
 Caso precise atualizar a documentação após alguma alteração no código, rode:
 
 ```bash
-./vendor/bin/sail artisan l5-swagger:generate
+sail artisan l5-swagger:generate
 ```
 
 **2. Acesse a Documentação**
