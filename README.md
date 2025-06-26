@@ -38,7 +38,7 @@ Siga os passos abaixo para configurar e executar a aplicação no seu ambiente.
 **1. Clonar o Repositório**
 
 ```bash
-git clone [URL_DO_SEU_REPOSITORIO_GIT]
+git clone https://github.com/Nykcolas/Desafio-Backend-Pleno-Soluct.git
 cd desafio-backend-pleno-soluct
 ```
 
