@@ -15,10 +15,11 @@ trait CrudTrait
             $data['user_id'] = auth()->id();
             $item = $this->model::create($data);
 
-            return response()->json([
-                'message' => 'Registro criado com sucesso.',
-                'data' => $item,
-            ], 201);
+            return $item->toResource()->addition(
+                'message',
+                'Registro criado com sucesso.'
+            );
+
         } catch (ValidationException $e) {
             return response()->json(['message' => 'Erro de validação.', 'errors' => $e->errors()], 422);
         } catch (\Exception $e) {
@@ -30,7 +31,7 @@ trait CrudTrait
     {
         try {
             $item = $this->findAndCheckOwnership($id);
-            return response()->json($item);
+            return $item->toResource();
         } catch (ModelNotFoundException $e) {
             return response()->json(['message' => 'Registro não encontrado.'], 404);
         } catch (\Exception $e) {
@@ -45,10 +46,10 @@ trait CrudTrait
             $data = $this->validateRequest($request);
             $item->update($data);
 
-            return response()->json([
-                'message' => 'Registro atualizado com sucesso.',
-                'data' => $item,
-            ]);
+            return $item->toResource()->addition(
+                'message',
+                'Registro atualizado com sucesso.'
+            );
         } catch (ModelNotFoundException $e) {
             return response()->json(['message' => 'Registro não encontrado.'], 404);
         } catch (ValidationException $e) {

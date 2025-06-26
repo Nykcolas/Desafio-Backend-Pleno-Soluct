@@ -26,8 +26,9 @@ trait FiltrableTrait
 
             $perPage = (int) $request->query('per_page', 15);
             $results = $query->paginate(min($perPage, 500));
+            $resourceClass = $this->model::guessResourceName()[0];
 
-            return response()->json($results);
+            return $results->toResourceCollection($resourceClass);
         } catch (\Exception $e) {
             return response()->json([
                 'message' => 'Erro interno ao processar a requisição.',
