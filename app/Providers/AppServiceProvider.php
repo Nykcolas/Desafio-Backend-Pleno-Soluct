@@ -3,8 +3,6 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use App\Models\Task; // IMPORTAR O MODELO TASK
-use App\Observers\TaskObserver; // IMPORTAR O OBSERVER
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -16,6 +14,5 @@ class AppServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
-        Task::observe(TaskObserver::class);
     }
 }
