@@ -335,7 +335,7 @@
                     "Tasks"
                 ],
                 "summary": "Listar as tarefas do usuário",
-                "description": "Retorna uma lista paginada de tarefas pertencentes ao usuário autenticado. Este endpoint suporta filtros complexos, ordenação e paginação.\n *\n * **Exemplo de Uso Completo:**\n * Para buscar tarefas com status 'pending' ou 'in_progress', com data de vencimento entre 2025-01-01 e 2025-01-31, ordenadas pela data de vencimento (da mais antiga para a mais nova), a URL seria:\n * `/api/v1/tasks?filters[status][operator]=in&filters[status][value]=pending,in_progress&filters[due_date][operator]=between&filters[due_date][value]=2025-01-01,2025-01-31&sort_by=due_date&sort_order=asc`",
+                "description": "Retorna uma lista paginada de tarefas pertencentes ao usuário autenticado. Este endpoint suporta filtros complexos, ordenação e paginação.\n *\n * **Exemplo de Uso Completo:**\n * Para buscar tarefas com status 'pending' ou 'in_progress', com data de vencimento entre 2025-01-01 e 2025-01-31, ordenadas pela data de vencimento (da mais antiga para a mais nova), a URL seria:\n * `/api/v1/tasks?filters[status][operator]=in&filters[status][value]=pending,in_progress&filters[due_date][operator]=between&filters[due_date][value]=2025-01-01,2025-01-31&sort_by=due_date&sort_order=asc&page=1`",
                 "operationId": "860ebffacd8213547f9aeb5927f133dd",
                 "parameters": [
                     {
@@ -768,7 +768,7 @@
                     "TaskHistory"
                 ],
                 "summary": "Listar o histórico de alterações de uma tarefa",
-                "description": "Retorna uma lista paginada de alterações feitas na tarefa especificada. Suporta filtros, ordenação e paginação.\n *     \n * **Exemplo de Uso Completo:**\n * `/api/v1/tasks/1/history?filters[field_changed][operator]=like&filters[field_changed][value]=status&filters[changed_at][operator]=between&filters[changed_at][value]=2025-01-01,2025-06-30&sort_by=changed_at&sort_order=desc`",
+                "description": "Retorna uma lista paginada de alterações feitas na tarefa especificada. Suporta filtros, ordenação e paginação.\n *     \n * **Exemplo de Uso Completo:**\n * `/api/v1/tasks/1/history?filters[field_changed][operator]=like&filters[field_changed][value]=status&filters[changed_at][operator]=between&filters[changed_at][value]=2025-01-01,2025-06-30&sort_by=changed_at&sort_order=desc&page=1`",
                 "operationId": "2584d1065400fdc8ae1f1e3949c20ab8",
                 "parameters": [
                     {

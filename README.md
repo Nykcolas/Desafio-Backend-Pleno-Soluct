@@ -118,7 +118,7 @@ sail artisan l5-swagger:generate
 Com a aplicação rodando, acesse a seguinte URL no seu navegador:
 [http://localhost/api/documentation](http://localhost/api/documentation)
 
-Na interface do Swagger, você poderá ver todos os endpoints, seus parâmetros, corpos de requisição e respostas de exemplo. Você também pode usar o botão **"Authorize"** para inserir seu token de acesso e testar os endpoints protegidos diretamente pelo navegador.
+Na interface do Swagger, você poderá ver todos os endpoints, seus parâmetros, corpos de requisição e respostas de exemplo. com isso você tem tudo pra testar toda a aplicação. Divirta-se 😉.
 
 **Nota sobre Webhooks**
 -----
