@@ -9,10 +9,18 @@ use Carbon\Carbon;
 
 trait FiltrableTrait
 {
-    public function index(Request $request)
+    public function index(Request $request, array $fixedFilters = [])
     {
         try {
-            $query = $this->model::where('user_id', auth()->id());
+            $query = $this->model::query();
+
+            foreach ($fixedFilters as $field => $value) {
+                $query->where($field, $value);
+            }
+
+            if (in_array('user_id', (new $this->model)->getFillable())) {
+                $query->where('user_id', auth()->id());
+            }
 
             if ($request->has('with')) {
                 $with = array_map('trim', explode(',', $request->query('with')));
@@ -33,12 +41,10 @@ trait FiltrableTrait
             $perPage = (int) $request->query('per_page', 15);
             $results = $query->paginate(min($perPage, 500));
 
-            $resourceClass = $this->resourceClass ?? null;
-
-            return $resourceClass
-                ? $resourceClass::collection($results)
+            return $this->resourceClass
+                ? $this->resourceClass::collection($results)
                 : $results;
-        } catch (ValidationException $e) {
+        } catch (\Illuminate\Validation\ValidationException $e) {
             throw $e;
         } catch (\Exception $e) {
             return response()->json([

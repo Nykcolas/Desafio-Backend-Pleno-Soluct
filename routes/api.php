@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\V1\Auth\RegisterController;
 use App\Http\Controllers\Api\V1\Auth\LoginController;
 use App\Http\Controllers\Api\V1\UserController;
 use App\Http\Controllers\Api\V1\TaskController;
+use App\Http\Controllers\Api\V1\TaskHistoryController;
 
 Route::prefix('v1')->group(function () {
     Route::post('/register', [RegisterController::class, 'store']);
@@ -17,6 +18,7 @@ Route::prefix('v1')->group(function () {
         Route::post('/logout', [LoginController::class, 'logout']);
 
         Route::apiResource('tasks', TaskController::class);
+        Route::get('tasks/{task}/history', [TaskHistoryController::class, 'index']);
     });
 });
 
