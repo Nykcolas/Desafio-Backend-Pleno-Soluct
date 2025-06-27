@@ -100,7 +100,7 @@ Deixe este terminal aberto para ver os jobs sendo processados em tempo real semp
 Para garantir que toda a aplicação está funcionando corretamente, você pode rodar a suíte de testes automatizados com o seguinte comando:
 
 ```bash
-sail phpunit
+sail artisan test
 ```
 
 ## 📖 Documentação dos Endpoints (Swagger)
