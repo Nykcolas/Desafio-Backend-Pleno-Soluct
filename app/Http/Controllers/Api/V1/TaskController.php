@@ -265,8 +265,18 @@ class TaskController extends Controller
     ];
 
     protected $filterable = [
-        'title',
-        'status',
-        'due_date',
+        'title' => [
+            'operator' => ['like', '='],
+            'type' => 'string',
+        ],
+        'status' => [
+            'operator' => ['='],
+            'type' => 'enum',
+            'enum' => ['pending', 'in_progress', 'completed', 'canceled'],
+        ],
+        'due_date' => [
+            'operator' => ['=', '>=', '<=', '>', '<', 'between'],
+            'type' => 'date',
+        ],
     ];
 }
