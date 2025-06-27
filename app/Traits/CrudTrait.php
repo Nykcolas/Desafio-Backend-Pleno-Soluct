@@ -15,10 +15,9 @@ trait CrudTrait
             $data['user_id'] = auth()->id();
             $item = $this->model::create($data);
 
-            return $item->toResource()->addition(
-                'message',
-                'Registro criado com sucesso.'
-            );
+            return $item->toResource()->additional([
+                'message' => 'Registro criado com sucesso.'
+            ]);
 
         } catch (ValidationException $e) {
             return response()->json(['message' => 'Erro de validação.', 'errors' => $e->errors()], 422);
@@ -46,10 +45,9 @@ trait CrudTrait
             $data = $this->validateRequest($request);
             $item->update($data);
 
-            return $item->toResource()->addition(
-                'message',
-                'Registro atualizado com sucesso.'
-            );
+            return $item->toResource()->additional([
+                'message' => 'Registro atualizado com sucesso.'
+            ]);
         } catch (ModelNotFoundException $e) {
             return response()->json(['message' => 'Registro não encontrado.'], 404);
         } catch (ValidationException $e) {
