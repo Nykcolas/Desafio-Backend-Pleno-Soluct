@@ -44,7 +44,7 @@ class UserController extends Controller
             if (!$user) {
                 return response()->json(['error' => 'Usuário não autenticado.'], 401);
             }
-            return response()->json($user);
+            return $user->toResource();
         } catch (Exception $e) {
             Log::error('Erro ao buscar usuário autenticado: ' . $e->getMessage());
             return response()->json(['error' => 'Erro interno ao buscar usuário.'], 500);
@@ -168,10 +168,8 @@ class UserController extends Controller
 
             $user->save();
 
-            return response()->json([
-                'message' => 'Usuário atualizado com sucesso.',
-                'user' => $user,
-            ], 200);
+            return $user->toResource()
+                ->additional(['message' => 'Usuário atualizado com sucesso.']);
 
         } catch (\Illuminate\Validation\ValidationException $e) {
             return response()->json([

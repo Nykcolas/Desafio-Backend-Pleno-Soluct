@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\TaskRequest;
+use App\Http\Resources\TaskResource;
 use App\Models\Task;
 use App\Traits\CrudTrait;
 use App\Traits\FiltrableTrait;
@@ -255,6 +256,7 @@ class TaskController extends Controller
 
     protected $model = Task::class;
     protected $requestClass = TaskRequest::class;
+    protected $resourceClass = TaskResource::class;
 
     protected $sortable = [
         'id',

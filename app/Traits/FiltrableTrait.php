@@ -66,7 +66,6 @@ trait FiltrableTrait
             $operator = strtolower($filterDetails['operator'] ?? '=');
             $value = $filterDetails['value'] ?? null;
 
-            // Validação de operador
             if (!in_array($operator, $allowedOperators)) {
                 $errors[$field] = "Operador '$operator' não permitido para o campo.";
                 continue;
