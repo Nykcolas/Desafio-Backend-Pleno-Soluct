@@ -22,7 +22,7 @@ use App\Traits\FiltrableTrait;
  *
  * **Exemplo de Uso Completo:**
  * Para buscar tarefas com status 'pending' ou 'in_progress', com data de vencimento entre 2025-01-01 e 2025-01-31, ordenadas pela data de vencimento (da mais antiga para a mais nova), a URL seria:
- * `/api/v1/tasks?filters[status][operator]=in&filters[status][value]=pending,in_progress&filters[due_date][operator]=between&filters[due_date][value]=2025-01-01,2025-01-31&sort_by=due_date&sort_order=asc`",
+ * `/api/v1/tasks?filters[status][operator]=in&filters[status][value]=pending,in_progress&filters[due_date][operator]=between&filters[due_date][value]=2025-01-01,2025-01-31&sort_by=due_date&sort_order=asc&page=1`",
  * tags={"Tasks"},
  * security={{"bearerAuth":{}}},
  * @OA\Parameter(
@@ -31,6 +31,13 @@ use App\Traits\FiltrableTrait;
  * required=false,
  * description="Número de itens por página.",
  * @OA\Schema(type="integer", default=15, maximum=500)
+ * ),
+ * @OA\Parameter(
+ * name="page",
+ * in="query",
+ * required=false,
+ * description="Número da página.",
+ * @OA\Schema(type="integer", default=1, maximum=100)
  * ),
  * @OA\Parameter(
  * name="sort_by",

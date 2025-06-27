@@ -350,6 +350,17 @@
                         }
                     },
                     {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Número da página.",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "default": 1,
+                            "maximum": 100
+                        }
+                    },
+                    {
                         "name": "sort_by",
                         "in": "query",
                         "description": "Campo para ordenação. Colunas permitidas: id, title, status, due_date, created_at.",
@@ -751,6 +762,225 @@
                 ]
             }
         },
+        "/api/v1/tasks/{task}/history": {
+            "get": {
+                "tags": [
+                    "TaskHistory"
+                ],
+                "summary": "Listar o histórico de alterações de uma tarefa",
+                "description": "Retorna uma lista paginada de alterações feitas na tarefa especificada. Suporta filtros, ordenação e paginação.\n *     \n * **Exemplo de Uso Completo:**\n * `/api/v1/tasks/1/history?filters[field_changed][operator]=like&filters[field_changed][value]=status&filters[changed_at][operator]=between&filters[changed_at][value]=2025-01-01,2025-06-30&sort_by=changed_at&sort_order=desc`",
+                "operationId": "2584d1065400fdc8ae1f1e3949c20ab8",
+                "parameters": [
+                    {
+                        "name": "task",
+                        "in": "path",
+                        "description": "ID da tarefa cujos históricos serão retornados",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "per_page",
+                        "in": "query",
+                        "description": "Número de itens por página.",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "default": 15,
+                            "maximum": 500
+                        }
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Número da página.",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "default": 1,
+                            "maximum": 100
+                        }
+                    },
+                    {
+                        "name": "sort_by",
+                        "in": "query",
+                        "description": "Campo para ordenação. Colunas permitidas: field_changed, old_value, new_value, changed_at.",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "default": "changed_at"
+                        }
+                    },
+                    {
+                        "name": "sort_order",
+                        "in": "query",
+                        "description": "Ordem da ordenação.",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "default": "desc",
+                            "enum": [
+                                "asc",
+                                "desc"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "filters[field_changed][operator]",
+                        "in": "query",
+                        "description": "Operador para o filtro do campo modificado.",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "like"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "filters[field_changed][value]",
+                        "in": "query",
+                        "description": "Valor para o campo 'field_changed'.",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "filters[changed_at][operator]",
+                        "in": "query",
+                        "description": "Operador para o filtro de data de alteração.",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "=",
+                                ">=",
+                                "<=",
+                                "between"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "filters[changed_at][value]",
+                        "in": "query",
+                        "description": "Data ou intervalo de datas. Para 'between', use formato: YYYY-MM-DD,YYYY-MM-DD",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Histórico da tarefa listado com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "current_page": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "task_id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "field_changed": {
+                                                        "type": "string",
+                                                        "example": "status"
+                                                    },
+                                                    "old_value": {
+                                                        "type": "string",
+                                                        "example": "pending"
+                                                    },
+                                                    "new_value": {
+                                                        "type": "string",
+                                                        "example": "completed"
+                                                    },
+                                                    "changed_at": {
+                                                        "type": "string",
+                                                        "format": "date-time",
+                                                        "example": "2025-06-25T14:00:00Z"
+                                                    },
+                                                    "user_id": {
+                                                        "type": "integer",
+                                                        "example": 2
+                                                    },
+                                                    "created_at": {
+                                                        "type": "string",
+                                                        "format": "date-time"
+                                                    },
+                                                    "updated_at": {
+                                                        "type": "string",
+                                                        "format": "date-time"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        },
+                                        "first_page_url": {
+                                            "type": "string",
+                                            "example": "http://localhost/api/v1/tasks/1/history?page=1"
+                                        },
+                                        "last_page": {
+                                            "type": "integer",
+                                            "example": 5
+                                        },
+                                        "total": {
+                                            "type": "integer",
+                                            "example": 45
+                                        },
+                                        "per_page": {
+                                            "type": "integer",
+                                            "example": 15
+                                        },
+                                        "path": {
+                                            "type": "string",
+                                            "example": "http://localhost/api/v1/tasks/1/history"
+                                        },
+                                        "next_page_url": {
+                                            "type": "string",
+                                            "example": "http://localhost/api/v1/tasks/1/history?page=2",
+                                            "nullable": true
+                                        },
+                                        "prev_page_url": {
+                                            "type": "string",
+                                            "example": null,
+                                            "nullable": true
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Não autorizado"
+                    },
+                    "404": {
+                        "description": "Tarefa não encontrada"
+                    },
+                    "422": {
+                        "description": "Erro de validação nos filtros"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/api/v1/me": {
             "get": {
                 "tags": [
@@ -963,6 +1193,10 @@
         {
             "name": "Tasks",
             "description": "Endpoints para gerenciamento de tarefas"
+        },
+        {
+            "name": "TaskHistory",
+            "description": "Endpoints para histórico de alterações das tarefas"
         },
         {
             "name": "Autenticação",
